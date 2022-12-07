@@ -2,30 +2,25 @@
 
 
 def roman_to_int(roman_string):
-    """Converts a roman numeral to an integer."""
-    if (not isinstance(roman_string, str) or
-            roman_string is None):
-        return (0)
-
-    roman_dict = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000
-    }
-    num = 0
-
+    # Create a dictionary of Roman numerals
+    roman_dict = {"I": 1,
+                  "V": 5,
+                  "X": 10,
+                  "L": 50,
+                  "C": 100,
+                  "D": 500,
+                  "M": 1000}
+    # Initialize a total as 0
+    total = 0
+    # Iterate over each letter in the string
     for i in range(len(roman_string)):
-        if roman_dict.get(roman_string[i], 0) == 0:
-            return (0)
-
-        if (i != (len(roman_string) - 1) and
-                roman_dict[roman_string[i]] < roman_dict[roman_string[i + 1]]):
-                num += roman_dict[roman_string[i]] * -1
-
+        # Get the current letter and the one after it
+        curr_letter = roman_string[i]
+        next_letter = roman_string[i + 1] if i + 1 < len(roman_string) else None
+        # Check if the current letter is larger than the next one
+        if roman_dict[curr_letter] >= roman_dict[next_letter]:
+            # If it is, add it to the total
+            total += roman_dict[curr_letter]
         else:
-            num += roman_dict[roman_string[i]]
-    return (num)
+            # Otherwise, subtract it from the total
+            total -= roman_dict
